@@ -197,7 +197,7 @@ class PDFAudioSummarizerApp:
             
             **Audio Quality:**
             - 3-minute summaries optimized for clarity
-            - Professional narration with Rachel voice
+            - Professional narration with cloned voice
             - High-quality MP3 output (44.1kHz)
             """)
         

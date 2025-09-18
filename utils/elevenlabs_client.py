@@ -38,7 +38,7 @@ class ElevenLabsProcessor:
     def __init__(
         self, 
         api_key: str, 
-        voice_id: str = "21m00Tcm4TlvDq8ikWAM",  # Rachel voice
+        voice_id: str = "vBaThRCUhBj6DkxqB593",  # Your cloned voice
         model_id: str = "eleven_multilingual_v2"
     ):
         """
@@ -46,7 +46,7 @@ class ElevenLabsProcessor:
         
         Args:
             api_key: ElevenLabs API key
-            voice_id: Voice ID to use (default: Rachel - clear, professional)
+            voice_id: Voice ID to use (default: Your cloned voice - personalized)
             model_id: TTS model to use (updated to latest model)
         """
         if not api_key or api_key == "your_elevenlabs_api_key_here":

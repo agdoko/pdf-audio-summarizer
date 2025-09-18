@@ -38,7 +38,7 @@ uv run streamlit run streamlit_app.py
 
 - **PDF Processing**: Extract text from scientific papers with fallback methods
 - **AI Summarization**: Claude Sonnet 4 generates 3-minute spoken summaries  
-- **Professional TTS**: ElevenLabs Rachel voice for clear, engaging narration
+- **Professional TTS**: ElevenLabs cloned voice for personalized, engaging narration
 - **Streamlit UI**: Clean, responsive web interface with progress tracking
 - **Error Handling**: Comprehensive error recovery and user feedback
 
@@ -180,7 +180,7 @@ uv sync
 ### API Setup
 1. **Claude API**: Get key from [console.anthropic.com](https://console.anthropic.com)
 2. **ElevenLabs**: Get key from [elevenlabs.io](https://elevenlabs.io)
-3. **Voice ID**: Default uses Rachel (clear, professional)
+3. **Voice ID**: Default uses your cloned voice (personalized)
 
 ## 📄 License
 
