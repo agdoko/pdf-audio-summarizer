@@ -33,13 +33,13 @@ class ClaudeProcessor:
     - Async programming patterns
     """
     
-    def __init__(self, api_key: str, model: str = "claude-3-sonnet-20240229"):
+    def __init__(self, api_key: str, model: str = "claude-sonnet-4-0"):
         """
         Initialize Claude client with proper configuration.
         
         Args:
             api_key: Anthropic API key
-            model: Claude model to use (defaults to Sonnet for cost/performance balance)
+            model: Claude model to use (defaults to Sonnet 4 for best performance)
         """
         if not api_key or api_key == "your_anthropic_api_key_here":
             raise ValueError("Valid Anthropic API key required")

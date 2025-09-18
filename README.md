@@ -37,7 +37,7 @@ uv run streamlit run streamlit_app.py
 ## 🎯 Core Features
 
 - **PDF Processing**: Extract text from scientific papers with fallback methods
-- **AI Summarization**: Claude 3 Sonnet generates 6-minute spoken summaries  
+- **AI Summarization**: Claude Sonnet 4 generates 6-minute spoken summaries  
 - **Professional TTS**: ElevenLabs Rachel voice for clear, engaging narration
 - **Streamlit UI**: Clean, responsive web interface with progress tracking
 - **Error Handling**: Comprehensive error recovery and user feedback
@@ -47,7 +47,7 @@ uv run streamlit run streamlit_app.py
 ```
 PDF Upload → Text Extraction → Claude Summarization → ElevenLabs TTS → Audio Download
      ↓              ↓                    ↓                  ↓              ↓
-  Streamlit    pdfplumber/PyPDF2    Anthropic API      ElevenLabs API   MP3 File
+  Streamlit    pdfplumber/PyPDF2    Claude Sonnet 4    ElevenLabs API   MP3 File
 ```
 
 ### Key Design Patterns
@@ -86,7 +86,7 @@ async def generate_summary(self, text: str) -> str:
 | Component | Processing Time | Estimated Cost |
 |-----------|----------------|----------------|
 | PDF Text Extraction | ~5 seconds | Free |
-| Claude Summarization | ~30-60 seconds | $0.15-0.30 |
+| Claude Sonnet 4 | ~30-60 seconds | $0.15-0.30 |
 | ElevenLabs TTS | ~30-45 seconds | $0.30 |
 | **Total Pipeline** | **~2-3 minutes** | **~$0.45-0.60** |
 
