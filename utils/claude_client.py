@@ -49,11 +49,11 @@ class ClaudeProcessor:
         
         # Token limits for cost management (important for production)
         self.max_input_tokens = 100_000  # Sonnet input limit
-        self.target_output_tokens = 2_000  # ~6 minutes of speech at 300 WPM
+        self.target_output_tokens = 1_200  # ~3 minutes of speech at 150 WPM
         
         logger.info(f"Claude client initialized with model: {model}")
     
-    def create_summary_prompt(self, pdf_text: str, target_minutes: int = 6) -> str:
+    def create_summary_prompt(self, pdf_text: str, target_minutes: int = 3) -> str:
         """
         Create optimized prompt for scientific PDF summarization.
         
@@ -158,7 +158,7 @@ Provide only the summary text, ready for text-to-speech conversion. No headers, 
         logger.info(f"Truncated to {len(truncated)} characters")
         return truncated
     
-    async def generate_summary(self, pdf_text: str, target_minutes: int = 6) -> str:
+    async def generate_summary(self, pdf_text: str, target_minutes: int = 3) -> str:
         """
         Generate audio-ready summary from PDF content.
         

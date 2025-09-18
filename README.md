@@ -1,6 +1,6 @@
 # PDF Audio Summarizer 🎧
 
-Convert scientific PDFs into professional audio summaries using Claude AI and ElevenLabs text-to-speech.
+Convert scientific PDFs into professional 3-minute audio summaries using Claude AI and ElevenLabs text-to-speech.
 
 ## 🚀 Quick Start (5 minutes)
 
@@ -37,7 +37,7 @@ uv run streamlit run streamlit_app.py
 ## 🎯 Core Features
 
 - **PDF Processing**: Extract text from scientific papers with fallback methods
-- **AI Summarization**: Claude Sonnet 4 generates 6-minute spoken summaries  
+- **AI Summarization**: Claude Sonnet 4 generates 3-minute spoken summaries  
 - **Professional TTS**: ElevenLabs Rachel voice for clear, engaging narration
 - **Streamlit UI**: Clean, responsive web interface with progress tracking
 - **Error Handling**: Comprehensive error recovery and user feedback

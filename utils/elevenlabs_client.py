@@ -165,8 +165,14 @@ class ElevenLabsProcessor:
                 model_id=self.model_id
             )
             
-            # The new API returns the audio data directly
-            return audio
+            # The new API returns a generator, so we need to collect the bytes
+            if hasattr(audio, '__iter__') and not isinstance(audio, (str, bytes)):
+                # It's a generator, collect all bytes
+                audio_bytes = b''.join(audio)
+                return audio_bytes
+            else:
+                # It's already bytes
+                return audio
             
         except Exception as e:
             logger.error(f"ElevenLabs API call failed: {e}")

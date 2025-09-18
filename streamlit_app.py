@@ -161,14 +161,9 @@ class PDFAudioSummarizerApp:
         """
         st.sidebar.title("⚙️ Configuration")
         
-        # Summary length configuration
-        target_minutes = st.sidebar.slider(
-            "Target Audio Length (minutes)",
-            min_value=3,
-            max_value=10,
-            value=6,
-            help="Longer summaries provide more detail but take more time to generate"
-        )
+        # Fixed summary length for optimal quality
+        target_minutes = 3  # Fixed to 3 minutes for best results
+        st.sidebar.info(f"🎧 Audio Length: {target_minutes} minutes (optimized)")
         
         # File size limit
         max_size_mb = int(os.getenv("MAX_PDF_SIZE_MB", "10"))
@@ -199,6 +194,11 @@ class PDFAudioSummarizerApp:
             - Text extraction: ~5 seconds
             - Summary generation: ~30-60 seconds  
             - Audio generation: ~30-45 seconds
+            
+            **Audio Quality:**
+            - 3-minute summaries optimized for clarity
+            - Professional narration with Rachel voice
+            - High-quality MP3 output (44.1kHz)
             """)
         
         return {
@@ -210,8 +210,8 @@ class PDFAudioSummarizerApp:
         """Render the main application interface."""
         st.title("🎧 PDF Audio Summarizer")
         st.markdown("""
-        Transform scientific PDFs into engaging audio summaries using AI.
-        Upload a research paper and get a professional narrated summary in minutes.
+        Transform scientific PDFs into engaging 3-minute audio summaries using AI.
+        Upload a research paper and get a professional narrated summary optimized for clarity.
         """)
         
         # File upload
