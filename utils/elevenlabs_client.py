@@ -18,7 +18,7 @@ from typing import Optional, Dict, Any, BinaryIO
 from pathlib import Path
 
 import httpx
-from elevenlabs import VoiceSettings, generate, save
+from elevenlabs import ElevenLabs
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -39,7 +39,7 @@ class ElevenLabsProcessor:
         self, 
         api_key: str, 
         voice_id: str = "21m00Tcm4TlvDq8ikWAM",  # Rachel voice
-        model_id: str = "eleven_monolingual_v1"
+        model_id: str = "eleven_multilingual_v2"
     ):
         """
         Initialize ElevenLabs client with voice configuration.
@@ -47,22 +47,16 @@ class ElevenLabsProcessor:
         Args:
             api_key: ElevenLabs API key
             voice_id: Voice ID to use (default: Rachel - clear, professional)
-            model_id: TTS model to use
+            model_id: TTS model to use (updated to latest model)
         """
         if not api_key or api_key == "your_elevenlabs_api_key_here":
             raise ValueError("Valid ElevenLabs API key required")
         
-        self.api_key = api_key
+        # Initialize the new ElevenLabs client
+        self.client = ElevenLabs(api_key=api_key)
         self.voice_id = voice_id
         self.model_id = model_id
-        
-        # Voice settings optimized for scientific content
-        self.voice_settings = VoiceSettings(
-            stability=0.75,      # Good balance for clarity and naturalness
-            similarity_boost=0.8, # Maintain voice consistency
-            style=0.2,           # Slight style variation for engagement
-            use_speaker_boost=True  # Enhance clarity
-        )
+        self.output_format = "mp3_44100_128"  # High-quality MP3
         
         logger.info(f"ElevenLabs client initialized with voice: {voice_id}")
     
@@ -142,7 +136,7 @@ class ElevenLabsProcessor:
         
         try:
             # Generate audio using ElevenLabs client
-            # Note: elevenlabs.generate() is synchronous, so we wrap it
+            # Note: ElevenLabs API calls are synchronous, so we wrap them
             audio_data = await asyncio.to_thread(
                 self._generate_sync,
                 processed_text
@@ -162,19 +156,21 @@ class ElevenLabsProcessor:
         
         Interview Concept: Thread pool integration for blocking operations
         """
-        # Set API key for the elevenlabs library
-        import elevenlabs
-        elevenlabs.set_api_key(self.api_key)
-        
-        # Generate audio
-        audio = generate(
-            text=text,
-            voice=self.voice_id,
-            model=self.model_id,
-            voice_settings=self.voice_settings
-        )
-        
-        return audio
+        try:
+            # Use the new ElevenLabs API
+            audio = self.client.text_to_speech.convert(
+                voice_id=self.voice_id,
+                output_format=self.output_format,
+                text=text,
+                model_id=self.model_id
+            )
+            
+            # The new API returns the audio data directly
+            return audio
+            
+        except Exception as e:
+            logger.error(f"ElevenLabs API call failed: {e}")
+            raise
     
     def create_audio_file(self, audio_data: bytes, filename: str = "summary.mp3") -> io.BytesIO:
         """
@@ -234,12 +230,7 @@ class ElevenLabsProcessor:
         return {
             "voice_id": self.voice_id,
             "model_id": self.model_id,
-            "voice_settings": {
-                "stability": self.voice_settings.stability,
-                "similarity_boost": self.voice_settings.similarity_boost,
-                "style": self.voice_settings.style,
-                "use_speaker_boost": self.voice_settings.use_speaker_boost
-            },
+            "output_format": self.output_format,
             "optimized_for": "Scientific content narration",
             "estimated_cost_per_minute": "$0.30"  # Rough estimate
         }
